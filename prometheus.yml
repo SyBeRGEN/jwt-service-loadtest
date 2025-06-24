@@ -1,0 +1,13 @@
+global:
+  scrape_interval: 10s
+
+scrape_configs:
+  - job_name: 'user-auth'
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: ['user-auth:8080']
+
+  - job_name: 'verification-service'
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: ['verification-service:8082']
