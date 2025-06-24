@@ -62,7 +62,7 @@ jobs:
         run: sleep 15
 
       - name: Run JMeter test
-        run: tools/jmeter/bin/jmeter -n -t jwt_mock_test.jmx -l result.jtl -e -o report
+        run: tools/jmeter/bin/jmeter -n -t tools/jmeter/jwt_mock_test.jmx -l result.jtl -e -o report
         env:
           JAVA_HOME: /usr/lib/jvm/temurin-17-jdk-amd64
 
