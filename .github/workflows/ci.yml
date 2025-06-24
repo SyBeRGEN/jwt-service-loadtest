@@ -87,3 +87,21 @@ jobs:
         with:
           name: docker-compose-logs
           path: dc-lo
+
+  deploy-pages:
+    needs: build-test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download HTML report artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: jmeter-html-report
+          path: ./report
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./report
+          publish_branch: gh-pages
