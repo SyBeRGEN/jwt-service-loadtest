@@ -52,6 +52,16 @@ pipeline {
             }
         }
 
+        stage('Clean previous Docker setup') {
+			steps {
+				sh '''
+            echo "[INFO] Removing old containers if exist..."
+            docker rm -f prometheus influxdb redis || true
+            docker-compose down || true
+        '''
+    		}
+		}
+
         stage('Start Docker Compose') {
 			steps {
 				sh 'docker-compose up -d'
