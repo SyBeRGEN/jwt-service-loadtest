@@ -13,11 +13,11 @@ pipeline {
             }
         }
 
-        stage('Set up Java 17') {
+        stage('Check Java') {
 			steps {
-				sh 'sudo apt update && sudo apt install -y openjdk-17-jdk'
-            }
-        }
+				sh 'java -version'
+    		}
+		}
 
         stage('Build user-auth') {
 			steps {
