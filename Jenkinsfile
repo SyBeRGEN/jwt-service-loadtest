@@ -16,13 +16,16 @@ pipeline {
         stage('Check Java') {
 			steps {
 				sh 'java -version'
-    		}
-		}
+            }
+        }
 
         stage('Build user-auth') {
 			steps {
 				dir('user-auth') {
-					sh 'chmod +x ./gradlew && ./gradlew build'
+					sh '''
+                        chmod +x ./gradlew
+                        ./gradlew clean build
+                    '''
                 }
             }
         }
@@ -30,7 +33,10 @@ pipeline {
         stage('Build verification-service') {
 			steps {
 				dir('verification-service') {
-					sh 'chmod +x ./gradlew && ./gradlew build'
+					sh '''
+                        chmod +x ./gradlew
+                        ./gradlew clean build
+                    '''
                 }
             }
         }
@@ -42,16 +48,6 @@ pipeline {
                     chmod +x tools/jmeter/bin/*.sh || true
                     chmod +x tools/jmeter/bin/*.cmd || true
                     chmod +x tools/jmeter/bin/*.bat || true
-                '''
-            }
-        }
-
-        stage('Install Docker Compose') {
-			steps {
-				sh '''
-                    sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-                    sudo chmod +x /usr/local/bin/docker-compose
-                    docker-compose --version
                 '''
             }
         }
